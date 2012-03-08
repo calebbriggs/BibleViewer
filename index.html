@@ -1,0 +1,106 @@
+	<html>  
+
+	<head>
+
+
+	  <title>Bible</title>
+	<link rel="stylesheet" type="text/css" href="stylesheets/grid.css">
+	 <link rel="stylesheet" type="text/css" href="stylesheets/master.css">
+
+	  <script src="scripts/jquery-1.7.1.js" type="text/javascript"></script>
+	  <script src="scripts/jquery-ui-1.8.16.custom.js" type="text/javascript"></script>
+	  <script src="scripts/jquery.ui.widget.js" type="text/javascript"></script>
+	  <script src="scripts/knockout-2.0.0.js" type="text/javascript"></script>
+	  <script src="scripts/underscore-min.js" type="text/javascript"></script> 
+	  
+	  <script src="scripts/bible.js" type="text/javascript"></script>
+	  <script src="scripts/KJV.js" type="text/javascript"></script>
+	  
+	  
+	  <script>
+
+	  		var model = function(){
+  				var _self =this;
+
+  				bible.name = "ASV";
+  				KJV.name = "KJV";
+
+  				this.bibles = [bible, KJV]
+  				this.currentBible = ko.observable();
+	  			this.books =ko.observableArray([]);
+	  			this.chapters = ko.observableArray([]);
+	  			this.verses = ko.observableArray([]);
+	  			this.currentBook = ko.observable();
+	  			this.currentChapter = ko.observable();
+	  			this.currentVerse = ko.observable();
+
+	  			this.currentBible.subscribe(function(newValue){
+  					_self.books(newValue.books);
+	  			});
+	  			this.currentBook.subscribe(function(newValue){
+  					_self.chapters(newValue.chapters);
+	  			});
+	  			this.currentChapter.subscribe(function(newValue){
+  					// _self.verses(newValue.verses);
+  					var chapter = ""
+  					_.each(newValue.verses, function(Verse){ chapter += " "+ Verse.number + " "+ Verse.text });
+
+  					_self.currentVerse(chapter);
+	  			});
+
+	  		};
+
+	  		var viewModel = new model();
+
+			$('document').ready(function(){
+							
+				ko.applyBindings(viewModel);		
+			
+			})
+	  </script>
+
+	</head>
+
+		<body>
+			<header>
+				<div class="container">
+					<div class="grid_12">
+						<h1>Bible Viewer</h1>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</header>
+			<div class="container">
+				<div class="grid_12">
+					<div class="grid_12">
+						<p>Please select what you want to see:</p>
+						<hr / class="hr-form">
+						<br />
+					</div>
+					<div class="grid_4">
+						<label>Bible: </label><br/>
+						<select id="bibles" data-bind="options: bibles, optionsText: 'name', value: currentBible, optionsCaption: 'Choose...'"> </select>
+					</div>
+					<div class="grid_4">
+						<label>Book: </label><br/>
+						<select id="books" data-bind="options: books, optionsText: 'name', value: currentBook, optionsCaption: 'Choose...'"> </select>
+					</div>
+					<div class="grid_4">
+						<label>Chapter: </label><br/>
+						<select id="books" data-bind="options: chapters,optionsText: 'number', value: currentChapter, optionsCaption: 'Choose...'"> </select>
+					</div>
+					<!-- <div class="grid_4">
+						<label>Verse: </label><br/>
+						<select id="books" data-bind="options: verses,optionsText: 'number', value: currentVerse, optionsCaption: 'Choose...'"> </select>
+					</div> -->
+					<div class="grid_12">
+						<br />
+						<hr  class="hr-form"/>
+						<br />
+					</div>
+					<div class ="grid_12" data-bind="text: currentVerse" ></div>
+
+				</div>				
+			</div>
+		</body>
+	</html>
