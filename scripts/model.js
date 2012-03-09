@@ -14,17 +14,29 @@ var model = function(){
 	  			this.currentVerse = ko.observable();
 
 	  			this.currentBible.subscribe(function(newValue){
-  					_self.books(newValue.books);
+	  				if(newValue)
+	  				{
+	  					_self.chapters([]);
+	  					_self.currentVerse(null);
+  						_self.books(newValue.books);
+  					}
 	  			});
 	  			this.currentBook.subscribe(function(newValue){
-  					_self.chapters(newValue.chapters);
+	  				if(newValue)
+	  				{
+	  					_self.chapters(newValue.chapters);	
+	  				}
+  					
 	  			});
 	  			this.currentChapter.subscribe(function(newValue){
   					// _self.verses(newValue.verses);
-  					var chapter = ""
-  					_.each(newValue.verses, function(Verse){ chapter += " "+ Verse.number + " "+ Verse.text });
+  					if(newValue)
+	  				{
+	  					var chapter = ""
+	  					_.each(newValue.verses, function(Verse){ chapter += " "+ Verse.number + " "+ Verse.text });
 
-  					_self.currentVerse(chapter);
+	  					_self.currentVerse(chapter);
+  					}
 	  			});
 
 	  		};
