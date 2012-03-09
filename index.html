@@ -43,7 +43,7 @@
 			<div class="container">
 				<div class="grid_12">
 					<div class="grid_12">
-						<p>Please select what you want to see:</p>
+						<p>Please select what bible, verse, and chapter you wish to read:</p>
 						<hr / class="hr-form">
 						<br />
 					</div>
@@ -53,22 +53,26 @@
 					</div>
 					<div class="grid_4">
 						<label>Book: </label><br/>
-						<select id="books" data-bind="options: books, optionsText: 'name', value: currentBook, optionsCaption: 'Choose...'"> </select>
+						<select id="books" data-bind="options: books, optionsText: 'name', value: currentBook, optionsCaption: 'Choose...', enable: currentBible() "> </select>
 					</div>
 					<div class="grid_4">
 						<label>Chapter: </label><br/>
-						<select id="books" data-bind="options: chapters,optionsText: 'number', value: currentChapter, optionsCaption: 'Choose...'"> </select>
+						<select id="books" data-bind="options: chapters,optionsText: 'number', value: currentChapter, optionsCaption: 'Choose...' , enable: currentBook()"> </select>
 					</div>
-					<!-- <div class="grid_4">
-						<label>Verse: </label><br/>
-						<select id="books" data-bind="options: verses,optionsText: 'number', value: currentVerse, optionsCaption: 'Choose...'"> </select>
-					</div> -->
+
 					<div class="grid_12">
 						<br />
 						<hr  class="hr-form"/>
 						<br />
 					</div>
-					<div class ="grid_12" data-bind="text: currentVerse" ></div>
+
+					<div class="grid_12"  >
+						<table data-bind="foreach: currentChapter() ? currentChapter().verses : ''">
+							<tr>
+								<td data-bind="text: number + ' ' + text"><td>		
+							</tr>								
+						</ul>
+					</div>
 
 				</div>				
 			</div>

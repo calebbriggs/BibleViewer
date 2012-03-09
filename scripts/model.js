@@ -11,13 +11,11 @@ var model = function(){
 	  			this.verses = ko.observableArray([]);
 	  			this.currentBook = ko.observable();
 	  			this.currentChapter = ko.observable();
-	  			this.currentVerse = ko.observable();
 
 	  			this.currentBible.subscribe(function(newValue){
 	  				if(newValue)
 	  				{
 	  					_self.chapters([]);
-	  					_self.currentVerse(null);
   						_self.books(newValue.books);
   					}
 	  			});
@@ -28,15 +26,6 @@ var model = function(){
 	  				}
   					
 	  			});
-	  			this.currentChapter.subscribe(function(newValue){
-  					// _self.verses(newValue.verses);
-  					if(newValue)
-	  				{
-	  					var chapter = ""
-	  					_.each(newValue.verses, function(Verse){ chapter += " "+ Verse.number + " "+ Verse.text });
-
-	  					_self.currentVerse(chapter);
-  					}
-	  			});
+	  			
 
 	  		};
