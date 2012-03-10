@@ -24,7 +24,11 @@
 
 			$('document').ready(function(){
 							
-				ko.applyBindings(viewModel);		
+				ko.applyBindings(viewModel);	
+
+				viewModel.currentBible(bible);
+				viewModel.currentBook(viewModel.currentBible().books[0]);
+				viewModel.currentChapter(viewModel.currentBook().chapters[0]);	
 			
 			})
 	  </script>
@@ -67,11 +71,21 @@
 					</div>
 
 					<div class="grid_12"  >
-						<table data-bind="foreach: currentChapter() ? currentChapter().verses : ''">
-							<tr>
-								<td data-bind="text: number + ' ' + text"><td>		
-							</tr>								
-						</ul>
+						<table>
+							<thead>
+								<tr>
+									<th data-bind="text:currentBook() ? currentBook().name : ''">
+
+									</th>
+								</tr>
+
+							</thead>	
+							<tbody data-bind="foreach: currentChapter() ? currentChapter().verses : ''">
+								<tr>
+									<td data-bind="text: number + ' ' + text"><td>		
+								</tr>								
+							</tbody>
+						</table>
 					</div>
 
 				</div>				
