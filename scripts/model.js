@@ -1,10 +1,10 @@
-var model = function(){
+var model = function(books){
   				var _self =this;				
   				
 
   				this.bibles = ["ASV", "KJV"];
   				this.currentBible = ko.observable();
-	  			this.books =ko.observableArray([]);
+	  			this.books =ko.observableArray(books);
 	  			this.chapters = ko.observableArray([]);
 	  			this.verses = ko.observableArray([]);
 	  			this.currentBook = ko.observable();
@@ -12,37 +12,61 @@ var model = function(){
 	  			this.currentBookNumber = ko.observable();
 	  			this.currentChapterNumber = ko.observable();
 
-	  			this.currentBible.subscribe(function(newValue){
-	  				if(newValue)
-	  				{
-	  					_self.chapters([]);
+
+	  			this.currentBible.subscribe(function (newValue) {
+	  				if (newValue && _self.currentBook()) {
+
+	  					var postData = {currentBible: _self.currentBible(), currentBook: _self.currentBook().Book};
+
 	  					$.ajax({
-			                url: '/bibles/'+newValue,
+			                url: '/',
 			                async: true,
-			                type: "GET",
+			                data: JSON.stringify(postData) ,
+			                type: "Post",
 			                contentType: 'application/json',
 			                success: function(result){			                	
-			                	_self.books(result.books);
-			                	if(_self.currentBookNumber())
-			                		_self.currentBook(_self.books()[_self.currentBookNumber()]);
-			                	else
-			                		_self.currentBook(_self.books()[0]);
+			                	_self.chapters(result.chapters);
+			                	
 								if(_self.currentChapterNumber())
-									_self.currentChapter(_self.currentBook().chapters[_self.currentChapterNumber()]);	
+									_self.currentChapter(result.chapters[_self.currentChapterNumber()]);	
 								else
-									_self.currentChapter(_self.currentBook().chapters[0]);					
+									_self.currentChapter(result.chapters[0]);
+
+								if(_self.currentChapterNumber())
+									_self.currentChapter(result.chapters[_self.currentChapterNumber()]);					
 				                }
 				            });
-  						
-  					}
-	  			});
+
+	  				};
+	  				// body...
+	  			})
+	  		
 	  			this.currentBook.subscribe(function(newValue){
 	  				if(newValue)
 	  				{
-	  					_self.chapters(newValue.chapters);
-	  					_self.currentBookNumber(newValue.number-1)
-	  					if(_self.currentChapterNumber())
-									_self.currentChapter(newValue.chapters[_self.currentChapterNumber()]);	
+	  					var postData = {currentBible: _self.currentBible(), currentBook: newValue.Book};
+
+	  					$.ajax({
+			                url: '/',
+			                async: true,
+			                data: JSON.stringify(postData) ,
+			                type: "Post",
+			                contentType: 'application/json',
+			                success: function(result){			                	
+			                	_self.chapters(result.chapters);
+			                	
+								if(_self.currentChapterNumber())
+									_self.currentChapter(result.chapters[_self.currentChapterNumber()]);	
+								else
+									_self.currentChapter(result.chapters[0]);
+
+								if(_self.currentChapterNumber())
+									_self.currentChapter(result.chapters[_self.currentChapterNumber()]);					
+				                }
+				            });
+
+	  					_self.currentBookNumber(newValue.Number-1);
+	  						
 	  				}
   					
 	  			});

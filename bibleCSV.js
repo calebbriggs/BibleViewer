@@ -9,9 +9,12 @@ var currentBook;
 var currentChapter;
 
 var book = function(data){
-	this.name = booksOfTheBible[data.book - 1].Book;
-	this.number = booksOfTheBible[data.book - 1].Number;
-	this.chapters = [];
+	if(data){
+		this.name = booksOfTheBible[data.book - 1].Book;
+		this.number = booksOfTheBible[data.book - 1].Number;
+		this.chapters = [];
+	}
+	
 }
 
 var chapter = function(data){
@@ -27,14 +30,14 @@ var verse = function(data){
 
 csv()
 .fromPath('./nodeCSV/KJV.csv')
-.toPath('./nodeCSV/bible.txt')
+.toPath('./nodeCSV/KJV.txt')
 .transform(function(data){
    
     return {book: data[0],chapter: data[1] ,verse: data[2], text: data[3]};
 })
 .on('data',function(data,index){
 	var test =_.find(bible.books, function(book){ return book.number == data.book ; });
-	if(!test)
+	if(!test && parseInt(data.book)<67)
 	{
 		currentBook = new book(data)
 		bible.books.push(currentBook);

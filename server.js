@@ -1,14 +1,11 @@
 var http = require('http');
 var fs = require('fs');
 var path = require('path');
+var _ = require('underscore');
 
 var
-  util = require('util'),
-  couchdb = require('felix-couchdb'),
-  client = couchdb.createClient(5984, 'localhost'),
-  db = client.db('bibleViewer'),
   bible = require('./scripts/bible.js'),
-  KJV = bible = require('./scripts/KJV.js');
+  KJV = require('./scripts/KJV.js');
   bible.name = "ASV";
   KJV.name = "KJV";
 
@@ -16,42 +13,31 @@ var
  
 http.createServer(function (request, response) {
  
-    console.log('request starting...');
-
-     var filePath = '.' + request.url;
+    var filePath = '.' + request.url;
     if (filePath == './')
         filePath = './index.html';
 
-    if (filePath=='./bibles/ASV') {
-        response.writeHead(200, {'content-type': 'text/json' });
-        response.write( JSON.stringify(bible));
-        response.end('\n');
-    };
-    if (filePath=='./bibles/KJV') {
-        response.writeHead(200, {'content-type': 'text/json' });
-        response.write( JSON.stringify(KJV));
-        response.end('\n');
-    };
-
     if (request.method == 'POST') {
-        var postData='';
-
+        var getData = '';
         request.on('data', function(data){
-            postData += data;
+            getData += data;
         });
 
         request.on('end', function () {
-           console.log('postData received');
-           db.saveDoc('bibles', {bibles: postData}, function(er, ok) {
-               if (er) throw new Error(JSON.stringify(er));
-               util.puts('Saved bibles to the db');
-             });
+           console.log('Post Received');
+           getData = JSON.parse(getData);
+           var currentBible = _.find(bibles, function(bible){return bible.name == getData.currentBible;});
+           var currentBook = _.find(currentBible.books, function(book){ return book.name == getData.currentBook});
+            response.writeHead(200, {'content-type': 'text/json' });
+            response.write( JSON.stringify(currentBook));
+            response.end('\n');
 
         });
     }
    
         var extname = path.extname(filePath);
         var contentType = 'text/html';
+
         switch (extname) {
             case '.js':
                 contentType = 'text/javascript';
@@ -59,7 +45,7 @@ http.createServer(function (request, response) {
             case '.css':
                 contentType = 'text/css';
                 break;
-        }
+          }
          
         path.exists(filePath, function(exists) {
          

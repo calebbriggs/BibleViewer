@@ -13,16 +13,17 @@
 	  <script src="scripts/knockout-2.0.0.js" type="text/javascript"></script>
 	  <script src="scripts/underscore-min.js" type="text/javascript"></script> 
 	  <script src="scripts/model.js" type="text/javascript"></script>
+	  <script src="scripts/booksOfTheBibleView.js" type="text/javascript"></script>
 	  
 	  <script>
 
 
-	  		var viewModel = new model();
+	  		var viewModel = new model(booksOfTheBible);
 
 			$('document').ready(function(){
 							
 				ko.applyBindings(viewModel);
-				viewModel.currentBible("ASV");			
+				viewModel.currentBible("ASV");							
 			
 			})
 	  </script>
@@ -51,7 +52,7 @@
 					</div>
 					<div class="grid_4">
 						<label>Book: </label><br/>
-						<select id="books" data-bind="options: books, optionsText: 'name', value: currentBook, optionsCaption: 'Choose...', enable: currentBible() "> </select>
+						<select id="books" data-bind="options: books, optionsText: 'Book', value: currentBook, optionsCaption: 'Choose...', enable: currentBible() "> </select>
 					</div>
 					<div class="grid_4">
 						<label>Chapter: </label><br/>
@@ -69,7 +70,7 @@
 							<thead>
 								<tr>
 									<th >
-										<span data-bind="text:currentBook() ? currentBook().name : ''"></span>
+										<span data-bind="text:currentBook() ? currentBook().Book : ''"></span>
 										<span data-bind="text:currentChapter() ? currentChapter().number : ''"></span>
 									</th>
 									<th >
