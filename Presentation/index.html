@@ -1,0 +1,137 @@
+<!doctype html>
+
+<!--
+
+    Welcome to the light side of the source, young padawan.
+
+    One step closer to learn something interesting you are...
+
+                               ____                  
+                            _.' :  `._               
+                        .-.'`.  ;   .'`.-.           
+               __      / : ___\ ;  /___ ; \      __  
+             ,'_ ""--.:__;".-.";: :".-.":__;.--"" _`,
+             :' `.t""--.. '<@.`;_  ',@>` ..--""j.' `;
+                  `:-.._J '-.-'L__ `-- ' L_..-;'     
+                    "-.__ ;  .-"  "-.  : __.-"       
+                        L ' /.------.\ ' J           
+                         "-.   "--"   .-"            
+                        __.l"-:_JL_;-";.__           
+                     .-j/'.;  ;""""  / .'\"-.        
+                   .' /:`. "-.:     .-" .';  `.      
+                .-"  / ;  "-. "-..-" .-"  :    "-.   
+             .+"-.  : :      "-.__.-"      ;-._   \  
+             ; \  `.; ;                    : : "+. ; 
+             :  ;   ; ;                    : ;  : \: 
+             ;  :   ; :                    ;:   ;  : 
+            : \  ;  :  ;                  : ;  /  :: 
+            ;  ; :   ; :                  ;   :   ;: 
+            :  :  ;  :  ;                : :  ;  : ; 
+            ;\    :   ; :                ; ;     ; ; 
+            : `."-;   :  ;              :  ;    /  ; 
+             ;    -:   ; :              ;  : .-"   : 
+             :\     \  :  ;            : \.-"      : 
+              ;`.    \  ; :            ;.'_..--  / ; 
+              :  "-.  "-:  ;          :/."      .'  :
+               \         \ :          ;/  __        :
+                \       .-`.\        /t-""  ":-+.   :
+                 `.  .-"    `l    __/ /`. :  ; ; \  ;
+                   \   .-" .-"-.-"  .' .'j \  /   ;/ 
+                    \ / .-"   /.     .'.' ;_:'    ;  
+                     :-""-.`./-.'     /    `.___.'   
+                           \ `t  ._  /               
+                            "-.t-._:'                
+
+-->
+
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>impress.js | presentation tool based on the power of CSS3 transforms and transitions in modern browsers | by Bartek Szopka @bartaz</title>
+    
+    <meta name="description" content="impress.js is a presentation tool based on the power of CSS3 transforms and transitions in modern browsers and inspired by the idea behind prezi.com." />
+    <meta name="author" content="Bartek Szopka" />
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
+
+
+    <link href="css/stateinfo.css" rel="stylesheet" />
+    
+</head>
+<body>
+
+<div id="impress" class="impress-not-supported">
+
+    <div class="fallback-message">
+        <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+        <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser. Upcoming version 10 of Internet Explorer <i>should</i> also handle it.</p>
+    </div>
+
+    <div id="bored" class="step" data-x="-1000" data-y="-1500" data-z="10000">
+        <h1>Node CSV Parser, Node Server, and Knockout JS </h1>
+       <span class="footnote">By: Caleb Briggs </span>
+    </div>
+
+  
+    <div class="step slide" data-x="0" data-y="-1500">
+        <q><b>Problem 1</b></q>
+        <q>Finding versions of the bible in JSON form</q>
+    </div>
+
+    <div class="step slide" data-x="2000" data-y="-1500"  data-rotate-x="-45" data-rotate-y="-45"  >
+        <q><b>Solution 1</b></q>
+        <q>No luck finding a JSON bible but I did find a CSV bibles.</q>
+        <q>Use Node to parse a CSV into json.</q>
+    </div>
+
+    <div class="step" data-x="2000" data-y="2000" data-z="-3000" data-rotate="300" data-scale="1">
+         Bible CSV
+         <image height="110%"src="css/CSVshot.png"></image>        
+    </div>
+    <div class="step slide" data-x="4000" data-y="-1500">
+         <q><b>Problem 2</b></q>
+         <q>Each Bible is Approximately 5MB</q>
+         <q>How can I switch bibles, books, and chapters withhout killing the page or the server?</q>
+    </div>
+     <div class="step slide" data-x="6000" data-y="-1500" data-z="-3000">
+       <q><b>Solution 2</b></q>
+       <q>Use Node http to handle get and post requests to get only the book I need in the bible I want.</q>
+    </div>
+
+    <div class="step" data-x="2000" data-y="4000" data-z="-3000" data-rotate="300" data-scale="1">
+          Server JS
+         <image height="90%"src="css/Servershot.png"></image>              
+    </div>
+    <div class="step" data-x="2000" data-y="6000" data-z="-3000" data-rotate="300" data-scale="1">
+          UI
+         <image height="90%"src="css/Servershot.png"></image>              
+    </div>
+        
+    <div id="overview" class="step" data-x="3000" data-y="1500" data-scale="10">
+        <h1>Questions ?</h1>
+       <span class="footnote">Thank You </span>
+    </div>
+
+</div>
+
+
+<div class="hint">
+    <p>Use a spacebar or arrow keys to navigate</p>
+</div>
+<script>
+if ("ontouchstart" in document.documentElement) { 
+    document.querySelector(".hint").innerHTML = "<p>Tap on the left or right to navigate</p>";
+}
+</script>
+<script src="js/impress.js"></script>
+<script>impress();</script>
+
+
+</body>
+</html>
+
+
+

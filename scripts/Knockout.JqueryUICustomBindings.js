@@ -44,6 +44,8 @@
             widgetName: widgetName,
             widgetOptions: widgetOptions
         };
-    }
+    };
 
+     
+   
 })(jQuery);

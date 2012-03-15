@@ -31,7 +31,6 @@ http.createServer(function (request, response) {
             response.writeHead(200, {'content-type': 'text/json' });
             response.write( JSON.stringify(currentBook));
             response.end('\n');
-
         });
     }
    
@@ -53,8 +52,7 @@ http.createServer(function (request, response) {
 				break;
           }
          
-        path.exists(filePath, function(exists) {
-         
+        path.exists(filePath, function(exists) {         
             if (exists) {
                 fs.readFile(filePath, function(error, content) {
                     if (error) {
@@ -71,7 +69,6 @@ http.createServer(function (request, response) {
                 response.writeHead(404);
                 response.end();
             }
-        });    
-     
+        });   
 }).listen(8080);
 
