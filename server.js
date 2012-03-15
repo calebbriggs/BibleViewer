@@ -45,6 +45,12 @@ http.createServer(function (request, response) {
             case '.css':
                 contentType = 'text/css';
                 break;
+			case '.png':
+				contentType= 'Image';
+				break;
+			case '.jpg':
+				contentType= 'Image';
+				break;
           }
          
         path.exists(filePath, function(exists) {

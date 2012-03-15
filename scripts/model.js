@@ -38,7 +38,7 @@ var model = function(books){
 				            });
 
 	  				};
-	  				// body...
+	  				
 	  			})
 	  		
 	  			this.currentBook.subscribe(function(newValue){
