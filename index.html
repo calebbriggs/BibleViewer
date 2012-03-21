@@ -3,11 +3,10 @@
 	<head>
 
 
-	  <title>Bible</title>
-	<link rel="stylesheet" type="text/css" href="stylesheets/grid.css">
+	 <title>Bible</title>
+	 <link rel="stylesheet" type="text/css" href="stylesheets/grid.css">
 	 <link rel="stylesheet" type="text/css" href="stylesheets/master.css">
 	 <link rel="stylesheet" type="text/css" href="stylesheets/jquery-ui-1.8.18.custom.css">	 
-
 	  <script src="scripts/jquery-1.7.1.js" type="text/javascript"></script>
 	  <script src="scripts/jquery-ui-1.8.16.custom.js" type="text/javascript"></script>
 	  <script src="scripts/jquery.ui.widget.js" type="text/javascript"></script>
@@ -19,22 +18,16 @@
 	  
 	  
 	  
-	  <script>
-			
-	
-
+	  <script>	
 	  		var viewModel = new model(booksOfTheBible);
 
 			$('document').ready(function(){
-							
 				ko.applyBindings(viewModel);
 				viewModel.currentBible("ASV");
-
 			})
 	  </script>
 
 	</head>
-
 		<body>
 			<header>
 				<div class="container">
@@ -54,7 +47,6 @@
 					<div class="grid_4">
 						<label>Bible: </label><br/>
 						<select id="bibles" data-bind="options: bibles, value: currentBible, optionsCaption: 'Choose...'"> </select>
-
 					</div>
 					<div class="grid_4">
 						<label>Book: </label><br/>
@@ -64,13 +56,11 @@
 						<label>Chapter: </label><br/>
 						<select id="chapters" data-bind="options: chapters,optionsText: 'number', value: currentChapter, optionsCaption: 'Choose...' , enable: currentBook()"> </select>
 					</div>
-
 					<div class="grid_12">
 						<br />
 						<hr  class="hr-form"/>
 						<br />
 					</div>
-
 					<div class="grid_12"  data-bind="visible: currentBook()">
 						<table>
 							<thead>
