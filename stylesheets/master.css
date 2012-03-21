@@ -5,49 +5,17 @@
 
 
 body {
-	background-color:#2f3439;
-	background:url(../stylesheets/bg.jpg) repeat;
+	background-color:#efefef;
 	font-size:14px;
 	line-height:24px;
+	font-weight:lighter;
+	letter-spacing:-1%;
 	font-family:"Helvetica", "Arial", sans-serif;
-	color:#eee;
+	color:#343434;
 }
 
 
-/*Header */
 
-header{
-
-color:#f3f3f3;
-opacity: 0.7;
--moz-opacity: 0.7;
-filter:alpha(opacity=0.7);
-background: rgb(59,64,71); /* Old browsers */
-background: -moz-linear-gradient(top,  rgba(59,64,71,1) 0%, rgba(47,52,57,1) 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(59,64,71,1)), color-stop(100%,rgba(47,52,57,1))); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  rgba(59,64,71,1) 0%,rgba(47,52,57,1) 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  rgba(59,64,71,1) 0%,rgba(47,52,57,1) 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  rgba(59,64,71,1) 0%,rgba(47,52,57,1) 100%); /* IE10+ */
-background: linear-gradient(top,  rgba(59,64,71,1) 0%,rgba(47,52,57,1) 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b4047', endColorstr='#2f3439',GradientType=0 ); /* IE6-9 */
--webkit-box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.5), inset 0 -1px 0px rgba(255,255,255, 0.1);
--moz-box-shadow:    0px 2px 3px rgba(0, 0, 0, 0.5),inset 0 -1px 0px rgba(255,255,255, 0.1);
-box-shadow:         0px 2px 3px rgba(0, 0, 0, 0.5),inset 0 -1px 0px rgba(255,255,255, 0.1);
-margin-bottom:15px;
-
-
-}
-header h1{
-	margin:15px 0;
-	text-shadow:0 2px 5px rgba(0,0,0, 0.5);
-	opacity:1.0;
-}
-
-hr.hr-form {border: 0; outline:none; border-bottom:1px solid #000000; background:none; line-height:1em;
-	-webkit-box-shadow: inset 0 1px 0px rgba(255,255,255, 0.1);
--moz-box-shadow: inset 0 1px 0px rgba(255,255,255, 0.1);
-box-shadow: 0 1px 0px rgba(255,255,255, 0.1);
-}
 br {height:1em; line-height:1em;}
 
 table{
@@ -86,8 +54,78 @@ td, th{
 
 select{
 	width: 100%;
+	margin:10px 0;
 }
 
 input{
 width: 87%;
+}
+
+.ui-widget{ margin:25px 0;}
+
+.ui-widget .ui-widget-content.ui-state-default{
+	background:#ffffff;
+	color:#777;
+	border:1px solid #cccccc;
+	font-weight:lighter;
+}
+
+.ui-widget .ui-widget-content.ui-state-default h2{
+	margin-bottom:15px;
+	font-weight:lighter;
+
+}
+
+.ui-widget .ui-widget-content.ui-state-default p{
+	
+	display:inline;
+
+}
+
+.ui-widget .ui-widget-content.ui-state-default p .verse{
+	font-size:10px;
+	font-weight:bold;
+	margin:0 1px;
+	color:#888;
+	text-shadow:0 1px 0 rgba(255,255,255, 0.5);
+	height:16px;
+	width:16px;
+	border:1px solid #ccc;
+	background:#e0e0e0;
+	padding:2px;
+
+}
+
+.ui-widget .ui-widget-content.ui-state-default p .verse:hover{
+	-webkit-box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+-moz-box-shadow:    0px 2px 5px rgba(0, 0, 0, 0.3);
+box-shadow:         0px 2px 5px rgba(0, 0, 0, 0.3);
+cursor: pointer;
+}
+
+.ui-widget .ui-widget-content.ui-state-default .ui-widget-header{
+	border:none;
+	background: rgb(254,254,254); /* Old browsers */
+
+background: -moz-linear-gradient(top,  rgba(254,254,254,1) 0%, rgba(238,238,238,1) 99%); /* FF3.6+ */
+
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(254,254,254,1)), color-stop(99%,rgba(238,238,238,1))); /* Chrome,Safari4+ */
+
+background: -webkit-linear-gradient(top,  rgba(254,254,254,1) 0%,rgba(238,238,238,1) 99%); /* Chrome10+,Safari5.1+ */
+
+background: -o-linear-gradient(top,  rgba(254,254,254,1) 0%,rgba(238,238,238,1) 99%); /* Opera 11.10+ */
+
+background: -ms-linear-gradient(top,  rgba(254,254,254,1) 0%,rgba(238,238,238,1) 99%); /* IE10+ */
+
+background: linear-gradient(top,  rgba(254,254,254,1) 0%,rgba(238,238,238,1) 99%); /* W3C */
+
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefefe', endColorstr='#eeeeee',GradientType=0 ); /* IE6-9 */
+
+	border-bottom:1px solid #cccccc;
+
+-webkit-box-shadow: inset 0px -1px 0px rgba(255, 255, 255, 0.8);
+-moz-box-shadow:    inset 0px -1px 0px rgba(255, 255, 255, 0.8);
+box-shadow:         inset 0px -1px 0px rgba(255, 255, 255, 0.8);
+
+	margin-bottom:20px;
 }
