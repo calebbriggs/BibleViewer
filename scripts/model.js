@@ -41,7 +41,6 @@ var model = function(books){
 
 	  		this.getRandomChapter = function(){
 	  			var randombooknumber = getRandomNumber(_self.books().length);
-	  			console.log(randombooknumber);
 	  			var book = _.find(_self.books(), function(book){return book.Number == randombooknumber;});
 	  			_self.random=true;
 	  			_self.currentBook(book);
@@ -69,7 +68,6 @@ var model = function(books){
 
 						if(_self.random) {
 							var randomchapternumber = getRandomNumber(_self.chapters().length);
-							console.log(randomchapternumber);
 		                	var chapter = _.find(_self.chapters(), function(ch){return ch.number == randomchapternumber ;});
 	  						_self.currentChapter(chapter);
 	  						_self.random=false;
