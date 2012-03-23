@@ -34,9 +34,10 @@
 							<div class="ui-widget">
 								<div class="ui-widget-content ui-state-default ui-corner-all">
 									<div class="ui-widget-header ui-corner-top">
-										<div class="grid_4"><select id="bibles" data-bind="options: bibles, value: currentBible, optionsCaption: 'Choose...'"> </select></div>
-										<div class="grid_4"><select id="books" data-bind="options: books, optionsText: 'Book', value: currentBook, optionsCaption: 'Choose...', enable: currentBible()"> </select></div>
-										<div class="grid_4"><select id="chapters" data-bind="options: chapters,optionsText: 'number', value: currentChapter, optionsCaption: 'Choose...' , enable: currentBook()"> </select></div>
+										<div class="grid_3"><select id="bibles" data-bind="options: bibles, value: currentBible, optionsCaption: 'Choose...'"> </select></div>
+										<div class="grid_3"><select id="books" data-bind="options: books, optionsText: 'Book', value: currentBook, optionsCaption: 'Choose...', enable: currentBible()"> </select></div>
+										<div class="grid_3"><select id="chapters" data-bind="options: chapters,optionsText: 'number', value: currentChapter, optionsCaption: 'Choose...' , enable: currentBook()"> </select></div>
+										<div class="grid_3"><button class="ui-button"data-bind="click: getRandomChapter">Get Random Chapter </button></div>
 										<div class="clear"></div>
 									</div>
 									<div class="grid_12">		
