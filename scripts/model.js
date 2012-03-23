@@ -11,6 +11,8 @@ var model = function(books){
 	  			this.currentBookNumber = ko.observable();
 	  			this.currentChapterNumber = ko.observable();
 
+	  			this.random = false;
+
 	  			this.currentBible.subscribe(function (newValue) {
 	  				if (newValue && _self.currentBook()) {
 	  					getBookFromBible();
@@ -32,26 +34,50 @@ var model = function(books){
 	  				}
 	  			});
 
-	  			var getBookFromBible = function(){
-	  				var postData = {currentBible: _self.currentBible(), currentBook: _self.currentBook().Book};
-  					$.ajax({
-		                url: '/',
-		                async: true,
-		                data: JSON.stringify(postData) ,
-		                type: "Post",
-		                contentType: 'application/json',
-		                success: function(result){			                	
-		                	_self.chapters(result.chapters);
-		                	
-							if(_self.currentChapterNumber())
-								_self.currentChapter(result.chapters[_self.currentChapterNumber()]);	
-							else
-								_self.currentChapter(result.chapters[0]);
+	  			var getRandomNumber = function(maxNumber){
 
-							if(_self.currentChapterNumber())
-								_self.currentChapter(result.chapters[_self.currentChapterNumber()]);					
-			                }
-		            });	  				
-	  			};  			
-
+	  			return Math.floor(Math.random() * (maxNumber)) +1;
 	  		};
+
+	  		this.getRandomChapter = function(){
+	  			var randombooknumber = getRandomNumber(_self.books().length);
+	  			console.log(randombooknumber);
+	  			var book = _.find(_self.books(), function(book){return book.Number == randombooknumber;});
+	  			_self.random=true;
+	  			_self.currentBook(book);
+	  			
+	  		};
+
+  			var getBookFromBible = function(){
+  				var postData = {currentBible: _self.currentBible(), currentBook: _self.currentBook().Book};
+					$.ajax({
+	                url: '/',
+	                async: true,
+	                data: JSON.stringify(postData) ,
+	                type: "Post",
+	                contentType: 'application/json',
+	                success: function(result){			                	
+	                	_self.chapters(result.chapters);
+	                	
+						if(_self.currentChapterNumber())
+							_self.currentChapter(result.chapters[_self.currentChapterNumber()]);	
+						else
+							_self.currentChapter(result.chapters[0]);
+
+						if(_self.currentChapterNumber())
+							_self.currentChapter(result.chapters[_self.currentChapterNumber()]);	
+
+						if(_self.random) {
+							var randomchapternumber = getRandomNumber(_self.chapters().length);
+							console.log(randomchapternumber);
+		                	var chapter = _.find(_self.chapters(), function(ch){return ch.number == randomchapternumber ;});
+	  						_self.currentChapter(chapter);
+	  						_self.random=false;
+		                }				
+		                }
+	                	 
+		               
+	            });	  				
+  			};  			
+
+  		};
