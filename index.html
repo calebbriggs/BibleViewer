@@ -37,15 +37,14 @@
 										<div class="grid_3"><select id="bibles" data-bind="options: bibles, value: currentBible, optionsCaption: 'Choose...'"> </select></div>
 										<div class="grid_3"><select id="books" data-bind="options: books, optionsText: 'Book', value: currentBook, optionsCaption: 'Choose...', enable: currentBible()"> </select></div>
 										<div class="grid_3"><select id="chapters" data-bind="options: chapters,optionsText: 'number', value: currentChapter, optionsCaption: 'Choose...' , enable: currentBook()"> </select></div>
-										<div class="grid_3"><button class="ui-button"data-bind="click: getRandomChapter">Get Random Chapter </button></div>
+										<div class="grid_3"><button class="ui-button ui-button-random"data-bind="click: getRandomChapter">Get Random Chapter </button></div>
 										<div class="clear"></div>
 									</div>
-									<div class="grid_12">		
+									<div class="grid_1"><button class="ui-button ui-button-next" data-bind="click: previousChapter"><</button></div>
+									<div class="grid_10">		
 										<p><span data-bind="visible:!currentBook()" style="text-align:center; width:100%; display:block; color:#ccc; font-weight:lighter;">Please select what bible, verse, and chapter you wish to read:</span></p>								
 										<h2><span data-bind="text:currentBook() ? currentBook().Book : ''"></span>
 										<span data-bind="text:currentChapter() ? currentChapter().number : ''"></span></h2>
-									</div>
-									<div class="grid_12">
 										<div data-bind="foreach: currentChapter() ? currentChapter().verses : ''">
 											<p>
 												<span class="verse ui-corner-all" data-bind="text: number"></span>	
@@ -53,6 +52,7 @@
 											</p>								
 										</div>
 									</div>
+									<div class="grid_1"><button class="ui-button ui-button-next" data-bind="click: nextChapter">></button></div>
 									<div class="clear"></div>
 								</div>
 							</div>

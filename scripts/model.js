@@ -12,6 +12,7 @@ var model = function(books){
 	  			this.currentChapterNumber = ko.observable();
 
 	  			this.random = false;
+				this.backAChapter = false;
 
 	  			this.currentBible.subscribe(function (newValue) {
 	  				if (newValue && _self.currentBook()) {
@@ -33,6 +34,30 @@ var model = function(books){
 	  					_self.currentChapterNumber(newValue.number-1);
 	  				}
 	  			});
+				
+				this.nextChapter = function(){
+					if(_self.currentChapterNumber()+1<_self.chapters().length){
+						_self.currentChapter(_self.chapters()[_self.currentChapterNumber()+1])
+					}
+					else{
+						if(_self.currentBookNumber()+1<66){
+							_self.currentBook(_self.books()[_self.currentBookNumber()+1]);
+							_self.currentChapter(_self.chapters()[0]);
+						}
+					}
+				};
+				this.previousChapter = function(){
+					if(_self.currentChapterNumber()>0){
+						_self.currentChapter(_self.chapters()[_self.currentChapterNumber()-1])
+					}
+					else{
+						if(_self.currentBookNumber()>0){
+							_self.backAChapter = true;
+							_self.currentBook(_self.books()[_self.currentBookNumber()-1]);
+							
+					}
+					}
+				}
 
 	  			var getRandomNumber = function(maxNumber){
 
@@ -71,6 +96,10 @@ var model = function(books){
 		                	var chapter = _.find(_self.chapters(), function(ch){return ch.number == randomchapternumber ;});
 	  						_self.currentChapter(chapter);
 	  						_self.random=false;
+		                }
+						if(_self.backAChapter) {
+							_self.currentChapter(result.chapters[result.chapters.length-1] );	  						
+	  						_self.backAChapter=false;
 		                }				
 		                }
 	                	 

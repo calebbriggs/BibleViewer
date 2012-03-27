@@ -352,6 +352,9 @@ button.ui-button-icon-only { width: 2.4em; } /* button elements seem to need a l
 .ui-button-icons-only { width: 3.4em; } 
 button.ui-button-icons-only { width: 3.7em; } 
 
+.ui-button-next {height: 100%; font-size: 24 px; width:100%; bg-color: #343434;}
+.ui-button-random {height: 2em; font-size: 24 px; width:100%;margin-top: 7.5px;}
+
 /*button text element */
 .ui-button .ui-button-text { display: block; line-height: 0.7;  }
 .ui-button-text-only .ui-button-text { padding: .4em 1em; }
