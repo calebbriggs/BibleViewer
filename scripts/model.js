@@ -10,6 +10,7 @@ var model = function(books){
 	  			this.currentChapter = ko.observable();
 	  			this.currentBookNumber = ko.observable();
 	  			this.currentChapterNumber = ko.observable();
+	  			this.tweets = ko.observableArray([]);
 
 	  			this.random = false;
 				this.backAChapter = false;
@@ -32,6 +33,7 @@ var model = function(books){
 	  			this.currentChapter.subscribe(function(newValue){
 	  				if(newValue){
 	  					_self.currentChapterNumber(newValue.number-1);
+	  					getTwitterInfo();
 	  				}
 	  			});
 				
@@ -72,6 +74,15 @@ var model = function(books){
 	  			
 	  		};
 
+	  		var getTwitterInfo = function(){
+	  				var getData = {q: _self.currentBook().Book + " " +_self.currentChapter().number + ":", rpp: 100};
+	  				$.ajax({ async: true, url: 'http://search.twitter.com/search.json', data: getData,dataType: "jsonp",
+							success: function(data){
+								data.results ? _self.tweets(data.results) : _self.tweets([])
+							}
+						});
+	  		}
+
   			var getBookFromBible = function(){
   				var postData = {currentBible: _self.currentBible(), currentBook: _self.currentBook().Book};
 					$.ajax({
@@ -83,13 +94,19 @@ var model = function(books){
 	                success: function(result){			                	
 	                	_self.chapters(result.chapters);
 	                	
-						if(_self.currentChapterNumber())
-							_self.currentChapter(result.chapters[_self.currentChapterNumber()]);	
-						else
+						if(_self.currentChapterNumber()){
+							_self.currentChapter(result.chapters[_self.currentChapterNumber()]);
+						}
+								
+						else{
 							_self.currentChapter(result.chapters[0]);
+						}
+							
 
-						if(_self.currentChapterNumber())
-							_self.currentChapter(result.chapters[_self.currentChapterNumber()]);	
+						if(_self.currentChapterNumber()){
+							_self.currentChapter(result.chapters[_self.currentChapterNumber()]);
+						}
+								
 
 						if(_self.random) {
 							var randomchapternumber = getRandomNumber(_self.chapters().length);
