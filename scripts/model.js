@@ -75,7 +75,7 @@ var model = function(books){
 	  		};
 
 	  		var getTwitterInfo = function(){
-	  				var getData = {q: _self.currentBook().Book + " " +_self.currentChapter().number + ":", rpp: 100};
+	  				var getData = {q: _self.currentBook().Book + " " +_self.currentChapter().number + ":", rpp: 15};
 	  				$.ajax({ async: true, url: 'http://search.twitter.com/search.json', data: getData,dataType: "jsonp",
 							success: function(data){
 								data.results ? _self.tweets(data.results) : _self.tweets([])
