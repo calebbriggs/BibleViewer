@@ -3,6 +3,8 @@ var model = function(books){
 
   				this.bibles = ["ASV", "KJV"];
   				this.currentBible = ko.observable();
+  				this.startingVerse = ko.observable(0);
+  				this.endingVerse = ko.observable(0);
 	  			this.books =ko.observableArray(books);
 	  			this.chapters = ko.observableArray([]);
 	  			this.verses = ko.observableArray([]);
@@ -33,9 +35,32 @@ var model = function(books){
 	  			this.currentChapter.subscribe(function(newValue){
 	  				if(newValue){
 	  					_self.currentChapterNumber(newValue.number-1);
+						_self.verses(_.map(newValue.verses, function(verse){ 
+							var isVisible = parseInt(verse.number) >= parseInt(_self.startingVerse()) && parseInt(verse.number) <= parseInt(_self.endingVerse())
+							verse.visible = ko.observable(isVisible); 
+							return verse;
+						}));
+						
+						//if(_self.startingVerse()==0 && _self.endingVerse()==0){
+							_self.startingVerse(1);
+							_self.endingVerse(newValue.verses.length)
+						//}
 	  					getTwitterInfo();
 	  				}
 	  			});
+				
+				this.startingVerse.subscribe(function(){
+					_.each(_self.verses(),function(verse){
+						var isVisible = parseInt(verse.number) >=  parseInt(_self.startingVerse()) && parseInt(verse.number) <= parseInt(_self.endingVerse());
+						verse.visible(isVisible); 
+					});
+				});
+				this.endingVerse.subscribe(function(){
+					_.each(_self.verses(),function(verse){
+						var isVisible = parseInt(verse.number) >=parseInt(_self.startingVerse()) && parseInt(verse.number) <= parseInt(_self.endingVerse());
+						verse.visible(isVisible); 
+					});
+				});
 				
 				this.nextChapter = function(){
 					if(_self.currentChapterNumber()+1<_self.chapters().length){

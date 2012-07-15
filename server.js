@@ -24,7 +24,6 @@ http.createServer(function (request, response) {
         });
 
         request.on('end', function () {
-           console.log('Post Received');
            getData = JSON.parse(getData);
            var currentBible = _.find(bibles, function(bible){return bible.name == getData.currentBible;});
            var currentBook = _.find(currentBible.books, function(book){ return book.name == getData.currentBook});

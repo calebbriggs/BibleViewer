@@ -54,11 +54,12 @@ td, th{
 
 select{
 	width: 100%;
-	margin:10px 0;
 }
-
 input{
-width: 87%;
+	width: 80%;
+}
+label{
+color: grey;
 }
 
 .ui-widget{ margin:25px 0;}

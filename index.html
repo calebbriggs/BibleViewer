@@ -34,9 +34,15 @@
 							<div class="ui-widget">
 								<div class="ui-widget-content ui-state-default ui-corner-all">
 									<div class="ui-widget-header ui-corner-top">
-										<div class="grid_4"><select id="bibles" data-bind="options: bibles, value: currentBible, optionsCaption: 'Choose...'"> </select></div>
-										<div class="grid_4"><select id="books" data-bind="options: books, optionsText: 'Book', value: currentBook, optionsCaption: 'Choose...', enable: currentBible()"> </select></div>
-										<div class="grid_4"><select id="chapters" data-bind="options: chapters,optionsText: 'number', value: currentChapter, optionsCaption: 'Choose...' , enable: currentBook()"> </select></div>
+										<div class="grid_2"><label>Version<label></div>
+										<div class="grid_3"><label>Book<label></div>
+										<div class="grid_3"><label>Chapter<label></div>
+										<div class="grid_4"><label>Verse(s)<label></div>
+										<div class="grid_2"><select id="bibles" data-bind="options: bibles, value: currentBible, optionsCaption: 'Choose...'"> </select></div>
+										<div class="grid_3"><select id="books" data-bind="options: books, optionsText: 'Book', value: currentBook, optionsCaption: 'Choose...', enable: currentBible()"> </select></div>
+										<div class="grid_3"><select id="chapters" data-bind="options: chapters,optionsText: 'number', value: currentChapter, optionsCaption: 'Choose...' , enable: currentBook()"> </select></div>
+										<div class="grid_2"> <input data-bind="value: startingVerse,valueUpdate: 'afterkeydown'"></input> <span style="color: grey; padding-left: 7px;">:</span> </div>																			
+										<div class="grid_2"> <input data-bind="value: endingVerse,valueUpdate: 'afterkeydown'"></input></div>
 										<div class="grid_12"><button class="ui-button ui-button-random"data-bind="click: getRandomChapter">Get Random Chapter </button></div>
 										<div class="clear"></div>
 									</div>
@@ -45,8 +51,8 @@
 										<p><span data-bind="visible:!currentBook()" style="text-align:center; width:100%; display:block; color:#ccc; font-weight:lighter;">Please select what bible, verse, and chapter you wish to read:</span></p>								
 										<h2><span data-bind="text:currentBook() ? currentBook().Book : ''"></span>
 										<span data-bind="text:currentChapter() ? currentChapter().number : ''"></span></h2>
-										<div data-bind="foreach: currentChapter() ? currentChapter().verses : ''">
-											<p>
+										<div data-bind="foreach: verses ">
+											<p data-bind="visible: visible()">
 												<span class="verse ui-corner-all" data-bind="text: number"></span>	
 												<span data-bind="text: text"></span>		
 											</p>								
