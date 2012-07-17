@@ -5,6 +5,8 @@ var model = function(books){
   				this.currentBible = ko.observable();
   				this.startingVerse = ko.observable(0);
   				this.endingVerse = ko.observable(0);
+  				this.searchTerm = ko.observable();
+				this.searchResults =ko.observableArray([]);
 	  			this.books =ko.observableArray(books);
 	  			this.chapters = ko.observableArray([]);
 	  			this.verses = ko.observableArray([]);
@@ -62,6 +64,10 @@ var model = function(books){
 					});
 				});
 				
+				this.searchTerm.subscribe(function(newValue){
+					getSearchData(newValue);
+				});
+				
 				this.nextChapter = function(){
 					if(_self.currentChapterNumber()+1<_self.chapters().length){
 						_self.currentChapter(_self.chapters()[_self.currentChapterNumber()+1])
@@ -106,6 +112,21 @@ var model = function(books){
 								data.results ? _self.tweets(data.results) : _self.tweets([])
 							}
 						});
+	  		}
+			var getSearchData = function(searchTerm){
+	  			var postData = {searchTerm: searchTerm};
+					$.ajax({
+	                url: '/search',
+	                async: true,
+	                data: JSON.stringify(postData) ,
+	                type: "Post",
+	                contentType: 'application/json',
+	                success: function(result){			                	
+	                	_self.searchResults(result);
+					}
+	                	
+		               
+	            });	  					
 	  		}
 
   			var getBookFromBible = function(){
