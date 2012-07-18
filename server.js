@@ -33,7 +33,7 @@ http.createServer(function (request, response) {
 		}
     }
 	else if(filePath == './search'){
-		 filePath = './index.html';
+		 filePath = './search.html';
 		 
 		 if (request.method == 'POST') {
 				var getSearchData = '';
@@ -47,7 +47,7 @@ http.createServer(function (request, response) {
 						 _.each(book.chapters, function(chapter){
 							 _.each(chapter.verses,function(verse){
 								if(verse.text.toLowerCase().indexOf(getSearchData.searchTerm.toLowerCase()) != -1){
-									searchArray.push( { text: book.name + " " + chapter.number + " " + verse.number + " " + verse.text});
+									searchArray.push( { book: book.name, chapter: chapter.number, verse: verse.number ,text: verse.text});
 								}					
 							});
 						});

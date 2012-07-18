@@ -104,7 +104,10 @@ var model = function(books){
 	  			_self.currentBook(book);
 	  			
 	  		};
-
+			this.search = function(){
+					window.location = "/search";
+			}
+			
 	  		var getTwitterInfo = function(){
 	  				var getData = {q: _self.currentBook().Book + " " +_self.currentChapter().number + ":", rpp: 15};
 	  				$.ajax({ async: true, url: 'http://search.twitter.com/search.json', data: getData,dataType: "jsonp",
