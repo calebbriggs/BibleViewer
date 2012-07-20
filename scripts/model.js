@@ -15,7 +15,8 @@ var model = function(books){
 	  			this.currentBookNumber = ko.observable();
 	  			this.currentChapterNumber = ko.observable();
 	  			this.tweets = ko.observableArray([]);
-
+				this.queryString = ko.observable();
+				
 	  			this.random = false;
 				this.backAChapter = false;
 
@@ -36,6 +37,10 @@ var model = function(books){
 
 	  			this.currentChapter.subscribe(function(newValue){
 	  				if(newValue){
+						if(_self.queryString()){
+							newValue.number = _self.queryString().chapter;
+							_self.queryString(null);
+						}
 	  					_self.currentChapterNumber(newValue.number-1);
 						_self.verses(_.map(newValue.verses, function(verse){ 
 							var isVisible = parseInt(verse.number) >= parseInt(_self.startingVerse()) && parseInt(verse.number) <= parseInt(_self.endingVerse())
@@ -66,6 +71,13 @@ var model = function(books){
 				
 				this.searchTerm.subscribe(function(newValue){
 					getSearchData(newValue);
+				});
+				
+				this.queryString.subscribe(function(newValue){
+					if(newValue){
+						var book = _.find(_self.books(),function (b){ return b.Book == newValue.book;});
+						_self.currentBook(book);
+					}						
 				});
 				
 				this.nextChapter = function(){
@@ -107,7 +119,22 @@ var model = function(books){
 			this.search = function(){
 					window.location = "/search";
 			}
-			
+		
+			this.getQueryString=function () {
+				var _qs={};
+				var match,
+					pl     = /\+/g,  // Regex for replacing addition symbol with a space
+					search = /([^&=]+)=?([^&]*)/g,
+					decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+					query  = window.location.search.substring(1);
+
+				while (match = search.exec(query))
+				   _qs[decode(match[1])] = decode(match[2]);
+				   
+				   if(_qs.book){
+						_self.queryString(_qs);
+				   }				   			   
+			};
 	  		var getTwitterInfo = function(){
 	  				var getData = {q: _self.currentBook().Book + " " +_self.currentChapter().number + ":", rpp: 15};
 	  				$.ajax({ async: true, url: 'http://search.twitter.com/search.json', data: getData,dataType: "jsonp",
@@ -115,6 +142,7 @@ var model = function(books){
 								data.results ? _self.tweets(data.results) : _self.tweets([])
 							}
 						});
+
 	  		}
 			var getSearchData = function(searchTerm){
 	  			var postData = {searchTerm: searchTerm};

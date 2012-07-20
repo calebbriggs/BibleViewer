@@ -1,5 +1,6 @@
 var http = require('http');
 var fs = require('fs');
+var url = require('url');
 var path = require('path');
 var _ = require('underscore');
 
@@ -14,8 +15,12 @@ var
 http.createServer(function (request, response) {
  
     var filePath = '.' + request.url;
-    if (filePath == './'){
+	var url_parts = url.parse(request.url,true);
+	var query = url_parts.query;
+	
+    if (filePath == './' || query.book) {
         filePath = './index.html';
+				
 		if (request.method == 'POST') {
 			var getData = '';
 			request.on('data', function(data){

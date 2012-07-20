@@ -19,8 +19,15 @@ var model = function(){
 							data: JSON.stringify(postData) ,
 							type: "Post",
 							contentType: 'application/json',
-							success: function(result){			                	
-								_self.searchResults(result);
+							success: function(result){
+								var searchResult=_.map(result,function(verse){
+									verse.click = function(){
+										window.location = "/?book=" +verse.book +"&&chapter="+ verse.chapter; 
+									}
+									return verse;
+								});
+								
+								_self.searchResults(searchResult);
 								searchCheck = _self.searchTerm();
 							}
 							
@@ -29,10 +36,11 @@ var model = function(){
 					}	
 					
 				};
-				
 				this.home = function(){
 					window.location = "/";
 				}
+				
+				
 				
 
   			

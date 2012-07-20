@@ -47,7 +47,7 @@
 										</div>
 										<div data-bind="foreach: searchResults ">
 											<p>
-												<span class="verse ui-corner-all" data-bind="text: book +' ' + chapter + ' : ' + verse  "></span>	
+												<span class="verse ui-corner-all" data-bind=",click: click, text: book +' ' + chapter + ' : ' + verse  "></span>	
 												<span data-bind="text: text"></span>		
 											</p>	
 											<br/>
