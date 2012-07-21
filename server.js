@@ -38,8 +38,7 @@ http.createServer(function (request, response) {
 		}
     }
 	else if(filePath == './search'){
-		 filePath = './search.html';
-		 
+				 
 		 if (request.method == 'POST') {
 				var getSearchData = '';
 				request.on('data', function(data){

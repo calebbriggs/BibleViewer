@@ -15,10 +15,45 @@ var model = function(books){
 	  			this.currentBookNumber = ko.observable();
 	  			this.currentChapterNumber = ko.observable();
 	  			this.tweets = ko.observableArray([]);
-				this.queryString = ko.observable();
-				
+								
 	  			this.random = false;
 				this.backAChapter = false;
+				
+				this.searchResultsVisible =ko.observable(false);
+				this.searchTerm = ko.observable();
+				this.searchClickChapter = ko.observable();
+				this.searchResults =ko.observableArray([]);
+
+				this.searchResultLength = ko.computed(function(){
+					return _self.searchResults().length;
+				});
+	
+				this.getSearchData = function(){
+						var postData = {searchTerm: _self.searchTerm()};
+						$.ajax({
+							url: '/search',
+							async: true,
+							data: JSON.stringify(postData) ,
+							type: "Post",
+							contentType: 'application/json',
+							success: function(result){
+								var searchResult=_.map(result,function(verse){
+									verse.click = function(){
+										var book = _.find(_self.books(),function (b){ return b.Book == verse.book;});
+										_self.currentBook(book);	
+										_self.searchResultsVisible(false);
+										_self.searchClickChapter(verse.chapter);
+									}
+									return verse;
+								});								
+								_self.searchResults(searchResult);
+								_self.searchResultsVisible(true);
+								_self.searchCheck = _self.searchTerm();
+							}
+							
+							   
+						});	 					
+				};
 
 	  			this.currentBible.subscribe(function (newValue) {
 	  				if (newValue && _self.currentBook()) {
@@ -37,9 +72,12 @@ var model = function(books){
 
 	  			this.currentChapter.subscribe(function(newValue){
 	  				if(newValue){
-						if(_self.queryString()){
-							newValue.number = _self.queryString().chapter;
-							_self.queryString(null);
+						if(_self.searchClickChapter()){
+							newValue.number = _self.searchClickChapter();
+							_self.searchClickChapter(null);														
+						}
+						else{
+							_self.searchResultsVisible(false);
 						}
 	  					_self.currentChapterNumber(newValue.number-1);
 						_self.verses(_.map(newValue.verses, function(verse){ 
@@ -68,18 +106,7 @@ var model = function(books){
 						verse.visible(isVisible); 
 					});
 				});
-				
-				this.searchTerm.subscribe(function(newValue){
-					getSearchData(newValue);
-				});
-				
-				this.queryString.subscribe(function(newValue){
-					if(newValue){
-						var book = _.find(_self.books(),function (b){ return b.Book == newValue.book;});
-						_self.currentBook(book);
-					}						
-				});
-				
+								
 				this.nextChapter = function(){
 					if(_self.currentChapterNumber()+1<_self.chapters().length){
 						_self.currentChapter(_self.chapters()[_self.currentChapterNumber()+1])
@@ -116,25 +143,8 @@ var model = function(books){
 	  			_self.currentBook(book);
 	  			
 	  		};
-			this.search = function(){
-					window.location = "/search";
-			}
-		
-			this.getQueryString=function () {
-				var _qs={};
-				var match,
-					pl     = /\+/g,  // Regex for replacing addition symbol with a space
-					search = /([^&=]+)=?([^&]*)/g,
-					decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
-					query  = window.location.search.substring(1);
-
-				while (match = search.exec(query))
-				   _qs[decode(match[1])] = decode(match[2]);
-				   
-				   if(_qs.book){
-						_self.queryString(_qs);
-				   }				   			   
-			};
+				
+			
 	  		var getTwitterInfo = function(){
 	  				var getData = {q: _self.currentBook().Book + " " +_self.currentChapter().number + ":", rpp: 15};
 	  				$.ajax({ async: true, url: 'http://search.twitter.com/search.json', data: getData,dataType: "jsonp",
@@ -144,22 +154,7 @@ var model = function(books){
 						});
 
 	  		}
-			var getSearchData = function(searchTerm){
-	  			var postData = {searchTerm: searchTerm};
-					$.ajax({
-	                url: '/search',
-	                async: true,
-	                data: JSON.stringify(postData) ,
-	                type: "Post",
-	                contentType: 'application/json',
-	                success: function(result){			                	
-	                	_self.searchResults(result);
-					}
-	                	
-		               
-	            });	  					
-	  		}
-
+			
   			var getBookFromBible = function(){
   				var postData = {currentBible: _self.currentBible(), currentBook: _self.currentBook().Book};
 					$.ajax({

@@ -20,8 +20,7 @@
 	  		var viewModel = new model(booksOfTheBible);
 			$('document').ready(function(){							
 				ko.applyBindings(viewModel);
-				viewModel.currentBible("ASV");
-				viewModel.getQueryString();				
+				viewModel.currentBible("ASV");					
 			})
 	  </script>
 
@@ -46,6 +45,7 @@
 										<div class="grid_12"><button class="ui-button ui-button-random"data-bind="click: getRandomChapter">Get Random Chapter </button></div>
 										<div class="clear"></div>
 									</div>
+									<div data-bind="visible: !searchResultsVisible()">
 									<div class="grid_1"><button class="ui-button ui-button-next" data-bind="click: previousChapter"><</button></div>
 									<div class="grid_10">		
 										<p><span data-bind="visible:!currentBook()" style="text-align:center; width:100%; display:block; color:#ccc; font-weight:lighter;">Please select what bible, verse, and chapter you wish to read:</span></p>								
@@ -59,7 +59,25 @@
 										</div>
 									</div>
 									<div class="grid_1"><button class="ui-button ui-button-next" data-bind="click: nextChapter">></button></div>
-									<div class="clear"></div>
+									</div>
+									<div class="clear"></div>									
+									<div style="min-height: 650px; " class="grid_12" data-bind=" visible: searchResultsVisible()">		
+										<div>
+											<p >
+												<span class="verse ui-corner-all"> Number Of Verses</span>	
+												<span data-bind="text: searchResultLength"></span>		
+											</p>	
+											<br/><br/>
+										</div>
+										<div data-bind="foreach: searchResults ">
+											<p>
+												<span class="verse ui-corner-all" data-bind=",click: click, text: book +' ' + chapter + ' : ' + verse  "></span>	
+												<span data-bind="text: text"></span>		
+											</p>	
+											<br/>
+										</div>
+									</div>
+									<div class="clear"></div>	
 								</div>
 							</div>
 						</div>
@@ -67,7 +85,8 @@
 							<div class="ui-widget">
 								<img src="stylesheets/images/bibleViewer_logo.png" style="height: 210px; width: 153x;" />
 								<br/>
-								<button class="ui-button ui-button-random"data-bind="click: search">Search </button>	
+								<div class="grid_9"><input style=" margin-top: 10px;" data-bind="value: searchTerm, valueUpdate: 'afterkeydown ' "></input></div>
+								<div class="grid_3"><button class="ui-button ui-button-random"data-bind="click: getSearchData, enable: searchTerm()">Search </button></div>	
 							</div>
 							<p><span style="text-align:center; width:100%; display:block; color:#ccc; font-weight:lighter;">Twitter:</span></p>	
 							<div data-bind="foreach: tweets ">
