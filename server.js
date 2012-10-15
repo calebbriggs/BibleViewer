@@ -11,6 +11,10 @@ var
   KJV.name = "KJV";
 
   bibles = [bible, KJV];
+  
+ String.prototype.contains = function(str){
+	return (this.toLowerCase().indexOf(str.toLowerCase()) != -1);
+  }
  
 http.createServer(function (request, response) {
  
@@ -47,17 +51,21 @@ http.createServer(function (request, response) {
 				request.on('end', function () {
 				   getSearchData = JSON.parse(getSearchData);
 					 var searchArray = [];
-					 var verses = _.each(bible.books, function(book){ 
+					 _.each(bible.books, function(book){ 
 						 _.each(book.chapters, function(chapter){
 							 _.each(chapter.verses,function(verse){
-								if(verse.text.toLowerCase().indexOf(getSearchData.searchTerm.toLowerCase()) != -1){
 									searchArray.push( { book: book.name, chapter: chapter.number, verse: verse.number ,text: verse.text});
-								}					
 							});
 						});
 					 });
+					 var searchTerm =getSearchData.searchTerm
+					 var verses = _.filter(searchArray, function(verse){
+							var chVerse =verse.chapter+":"+verse.verse;
+							return verse.text.contains(searchTerm) || (searchTerm.contains(verse.book) && searchTerm.contains(chVerse));
+					 });
+					 
 					response.writeHead(200, {'content-type': 'text/json' });
-					response.write( JSON.stringify(searchArray));
+					response.write( JSON.stringify(verses));
 					response.end('\n');
 				});
 			};

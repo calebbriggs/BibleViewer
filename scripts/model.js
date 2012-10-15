@@ -27,6 +27,37 @@ var model = function(books){
 				this.searchResultLength = ko.computed(function(){
 					return _self.searchResults().length;
 				});
+				
+				this.bibleCombo = ko.computed(function(){
+					return {
+						 widget: "comboWidget",
+						 options: {
+							datasource : _self.bibles,
+							value: _self.currentBible
+						 }
+					}
+				});
+				
+				this.bookCombo = ko.computed(function(){
+					return {
+						 widget: "comboWidget",
+						 options: {
+							datasource : _self.books(),
+							value: _self.currentBook,
+							displayNameObject: 'Book'
+						 }
+					}
+				});
+				this.chapterCombo = ko.computed(function(){
+					return {
+						 widget: "comboWidget",
+						 options: {
+							datasource : _self.chapters(),
+							value: _self.currentChapter
+						 }
+					}
+				});
+
 	
 				this.getSearchData = function(){
 						var postData = {searchTerm: _self.searchTerm()};
