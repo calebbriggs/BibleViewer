@@ -1,7 +1,7 @@
 .ui-combowidget-span{
 	width: 100%;
 	display: block; 
-	
+	background-color: #C8CECE;
 
 }
 .ui-combowiget-div{
@@ -10,13 +10,19 @@
 	z-index: 4999; 
 	opacity: 0.85;
 	padding: 0 0 0 0;
-	max-height: 100px;
+	max-height: 125px;
 	overflow-y: scroll;
+}
+
+.ui-widget-border{
+	 border-style:solid;
+	border-width:1px;
+	border-color:#B1A9A9;
 }
 
 .ui-combowidget-span:hover{
 	width: 100%;
 	display: block;
-	background-color:blue;
+	background-color:#5F89C9;
 	opacity : 55%;	
 }
