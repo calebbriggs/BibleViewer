@@ -14,10 +14,10 @@
 				
 				$el.addClass("ui-widget-border");
 				
-				this._label = $('<label>').text("Choose...").width($el.width()).appendTo($el);
+				this._label = $('<label class="ui-comboWidget-label">').text("Choose...").width($el.width()).appendTo($el);
 				
             this._optionsDiv = $('<div></div>')
-                .addClass('ui-combowiget-div '+'ui-state-highlight ui-corner-all')
+                .addClass('ui-combowiget-div')
 				.width($el.width())
                 .hide()
                 .appendTo($el);
@@ -67,6 +67,13 @@
 				
 				var span = $('<span class = "ui-combowidget-span ui-widget-border" >'+display+'</span>');
 				span.click(change);
+				var dis = typeof o.value=="function" ? o.value() : o.value;
+				if(typeof dis == "object"){
+					dis = typeof dis[o.displayNameObject] =="function" ? dis[o.displayNameObject]() : dis[o.displayNameObject]
+				}
+				if(dis == display){
+					span.addClass('ui-state-selected');
+				}
 				div.append(span);
 			});
 			this._optionsDiv.html(div);

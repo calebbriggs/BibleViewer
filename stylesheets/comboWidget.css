@@ -1,28 +1,38 @@
 .ui-combowidget-span{
 	width: 100%;
-	display: block; 
-	background-color: #C8CECE;
+	display:block;
+	background-color: #C3CACA;
+	padding-left: 10px;
 
 }
+
+.ui-combowidget-label{
+	display:block;
+	padding-left: 10px;
+
+}
+
 .ui-combowiget-div{
 	display: block;
 	position: absolute;
 	z-index: 4999; 
-	opacity: 0.85;
 	padding: 0 0 0 0;
-	max-height: 125px;
+	max-height: 200px;
 	overflow-y: scroll;
+	overflow-x: hidden;
+	color: grey;
 }
 
 .ui-widget-border{
-	 border-style:solid;
+	border-style:solid;
 	border-width:1px;
 	border-color:#B1A9A9;
 }
 
 .ui-combowidget-span:hover{
-	width: 100%;
-	display: block;
-	background-color:#5F89C9;
-	opacity : 55%;	
+	background-color:#96B0D8;
+}
+
+.ui-state-selected{
+	background-color:#96B0D8;
 }

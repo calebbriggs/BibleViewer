@@ -53,7 +53,8 @@ var model = function(books){
 						 widget: "comboWidget",
 						 options: {
 							datasource : _self.chapters(),
-							value: _self.currentChapter
+							value: _self.currentChapter,
+							displayNameObject: 'number'
 						 }
 					}
 				});

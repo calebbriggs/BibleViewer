@@ -56,10 +56,11 @@ select{
 	width: 100%;
 }
 input{
-	width: 80%;
+	width: 40%;
 }
 label{
 color: grey;
+width: 100%;
 }
 
 .ui-widget{ margin:25px 0;}

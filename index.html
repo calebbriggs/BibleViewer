@@ -42,9 +42,8 @@
 										
 										<div class="grid_2"><div data-bind="jqueryui: bibleCombo"> </div></div>
 										<div class="grid_3"><div data-bind="jqueryui: bookCombo"> </div></div>
-										<div class="grid_3"><select id="chapters" data-bind="options: chapters,optionsText: 'number', value: currentChapter, optionsCaption: 'Choose...' , enable: currentBook()"> </select></div>
-										<div class="grid_2"> <input data-bind="value: startingVerse,valueUpdate: 'afterkeydown'"></input> <span style="color: grey; padding-left: 7px;">:</span> </div>																			
-										<div class="grid_2"> <input data-bind="value: endingVerse,valueUpdate: 'afterkeydown'"></input></div>
+										<div class="grid_3"><div data-bind="jqueryui: chapterCombo"></div></div>
+										<div class="grid_4"> <input data-bind="value: startingVerse,valueUpdate: 'afterkeydown'"></input> <span style="color: grey; padding-left: 3px; padding-right: 7px;">:</span><input data-bind="value: endingVerse,valueUpdate: 'afterkeydown'"></input> </div>
 										<div class="grid_12"><button class="ui-button ui-button-random"data-bind="click: getRandomChapter">Get Random Chapter </button></div>
 										<div class="clear"></div>
 									</div>
@@ -88,7 +87,7 @@
 							<div class="ui-widget">
 								<img src="stylesheets/images/bibleViewer_logo.png" style="height: 210px; width: 153x;" />
 								<br/>
-								<div class="grid_9"><input style=" margin-top: 10px;" data-bind="value: searchTerm, valueUpdate: 'afterkeydown ' "></input></div>
+								<div class="grid_9"><input style=" margin-top: 10px; width: 80%;" data-bind="value: searchTerm, valueUpdate: 'afterkeydown ' "></input></div>
 								<div class="grid_3"><button class="ui-button ui-button-random"data-bind="click: getSearchData, enable: searchTerm()">Search </button></div>	
 							</div>
 							<p><span style="text-align:center; width:100%; display:block; color:#ccc; font-weight:lighter;">Twitter:</span></p>	
