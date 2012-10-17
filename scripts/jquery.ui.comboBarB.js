@@ -8,14 +8,14 @@
 				datasource: [],
 				valueObject: 'value',
 				displayNameObject: 'displayName',
-				value: {},
-				spans: []
-				
+				value: {},			
         },
         _create: function () {
 			var self = this,
 				o = self.options,
 				$el = self.element;
+				
+			o.spans = [];
 				
 			self._index = 0;
 			self._maxindex = o.datasource.length;
