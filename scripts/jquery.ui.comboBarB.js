@@ -3,7 +3,7 @@
 		return (this.toLowerCase().indexOf(str.toLowerCase()) != -1);
 	};
 
-    $.widget('barb.comboWidget', {
+    $.widget('barb.comboBarB', {
 		 options: {
 				datasource: [],
 				valueObject: 'value',
@@ -20,10 +20,10 @@
 				
 				$el.addClass("ui-widget-border");
 				
-				this._input = $('<input class="ui-comboWidget-input">').val("Choose...").width($el.width()).appendTo($el);
+				this._input = $('<input class="ui-comboBarB-input">').val("Choose...").width($el.width()).appendTo($el);
 				
             this._optionsDiv = $('<div></div>')
-                .addClass('ui-combowiget-div')
+                .addClass('ui-comboBarB-div')
 				.width($el.width())
                 .hide()
                 .appendTo($el);
@@ -44,15 +44,12 @@
 			var self = this,
 				o = self.options,
 				$el = self.element;
-				
+											
 				o.datasource = _.filter(o._datasource,function(data){
-					var dis ;
-					if(typeof data == "object"){
-						dis = typeof data[o.displayNameObject] =="function" ? data[o.displayNameObject]() : data[o.displayNameObject]
-					}
-					else{
-						dis = data
-					}
+					var dis = typeof data=="function" ? data() : data;
+					if(typeof dis == "object"){
+						dis = typeof dis[o.displayNameObject] =="function" ? dis[o.displayNameObject]() : dis[o.displayNameObject]
+					}					
 					return dis.contains(self._input.val());				
 				});
 				
@@ -93,7 +90,7 @@
 					self._close();
 				}				
 				
-				var span = $('<span class = "ui-combowidget-span ui-widget-border" >'+display+'</span>');
+				var span = $('<span class = "ui-comboBarB-span ui-widget-border" >'+display+'</span>');
 				span.click(change);
 				var dis = typeof o.value=="function" ? o.value() : o.value;
 				if(typeof dis == "object"){
@@ -116,7 +113,8 @@
 			  var self = this,
 				o = self.options,
 				$el = self.element;
-				
+			
+			o._datasource = o.datasource;
 			var val = typeof o.value =="function" ? o.value() : o.value;
 			
 			if(typeof val == "object"){

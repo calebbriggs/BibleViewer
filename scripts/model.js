@@ -30,7 +30,7 @@ var model = function(books){
 				
 				this.bibleCombo = ko.computed(function(){
 					return {
-						 widget: "comboWidget",
+						 widget: "comboBarB",
 						 options: {
 							datasource : _self.bibles,
 							value: _self.currentBible
@@ -40,7 +40,7 @@ var model = function(books){
 				
 				this.bookCombo = ko.computed(function(){
 					return {
-						 widget: "comboWidget",
+						 widget: "comboBarB",
 						 options: {
 							datasource : _self.books(),
 							value: _self.currentBook,
@@ -50,7 +50,7 @@ var model = function(books){
 				});
 				this.chapterCombo = ko.computed(function(){
 					return {
-						 widget: "comboWidget",
+						 widget: "comboBarB",
 						 options: {
 							datasource : _self.chapters(),
 							value: _self.currentChapter,

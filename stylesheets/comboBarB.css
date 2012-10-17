@@ -1,4 +1,4 @@
-.ui-combowidget-span{
+.ui-comboBarB-span{
 	width: 100%;
 	display:block;
 	background-color: #C3CACA;
@@ -6,13 +6,13 @@
 
 }
 
-.ui-combowidget-input{
+.ui-comboBarB-input{
 	display:block;
 	padding-left: 10px;
 
 }
 
-.ui-combowiget-div{
+.ui-comboBarB-div{
 	display: block;
 	position: absolute;
 	z-index: 4999; 
@@ -29,7 +29,7 @@
 	border-color:#B1A9A9;
 }
 
-.ui-combowidget-span:hover{
+.ui-comboBarB-span:hover{
 	background-color:#96B0D8;
 }
 
