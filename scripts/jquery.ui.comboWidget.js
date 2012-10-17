@@ -1,4 +1,8 @@
 (function ($) {
+	String.prototype.contains = function(str){
+		return (this.toLowerCase().indexOf(str.toLowerCase()) != -1);
+	};
+
     $.widget('barb.comboWidget', {
 		 options: {
 				datasource: [],
@@ -12,9 +16,11 @@
 				o = self.options,
 				$el = self.element;
 				
+				o._datasource = o.datasource;
+				
 				$el.addClass("ui-widget-border");
 				
-				this._label = $('<label class="ui-comboWidget-label">').text("Choose...").width($el.width()).appendTo($el);
+				this._input = $('<input class="ui-comboWidget-input">').val("Choose...").width($el.width()).appendTo($el);
 				
             this._optionsDiv = $('<div></div>')
                 .addClass('ui-combowiget-div')
@@ -24,6 +30,9 @@
             this.element
                  .bind('mouseenter', $.proxy(this._open, this))
                 .bind('mouseleave', $.proxy(this._close, this));
+				
+			this._input
+				.bind('keyup', $.proxy(this._search, this));
 			
         },
 		
@@ -31,6 +40,24 @@
 			this.refresh();
 		},
 		
+		_search: function(){
+			var self = this,
+				o = self.options,
+				$el = self.element;
+				
+				o.datasource = _.filter(o._datasource,function(data){
+					var dis ;
+					if(typeof data == "object"){
+						dis = typeof data[o.displayNameObject] =="function" ? data[o.displayNameObject]() : data[o.displayNameObject]
+					}
+					else{
+						dis = data
+					}
+					return dis.contains(self._input.val());				
+				});
+				
+				self._open();
+		},
 
         _open: function () {
 			var self = this,
@@ -62,7 +89,8 @@
 							o.value=val;
 						}
 					}
-					self._label.text(display);
+					self._input.val(display);
+					self._close();
 				}				
 				
 				var span = $('<span class = "ui-combowidget-span ui-widget-border" >'+display+'</span>');
@@ -92,10 +120,10 @@
 			var val = typeof o.value =="function" ? o.value() : o.value;
 			
 			if(typeof val == "object"){
-				this._label.text((val[o.displayNameObject] || "Choose ..."));
+				self._input.val((val[o.displayNameObject] || "Choose ..."));
 			}
 			else{
-				this._label.text((val || "Choose ..."));
+				self._input.val((val || "Choose ..."));
 			}
 		},
 
