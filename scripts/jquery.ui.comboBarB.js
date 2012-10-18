@@ -31,7 +31,12 @@
                 .appendTo($el);
             this._input
                	.bind('focus', $.proxy(this._open, this));
-                //.bind('blur', $.proxy(this._close, this));
+            this._input
+			.bind('keydown', function(e){
+					if(e.keyCode == 9){
+						self._close();
+					}
+			});
 				
 			this._input
 				.bind('keyup', $.proxy(this._search, this));				
@@ -94,11 +99,7 @@
 					}
 					return false;
 				}
-				if(e.keycode == 9){	
-					self._close();
-					return false;
-				}
-										
+														
 				o.datasource = _.filter(o._datasource,function(data){
 					var dis = typeof data=="function" ? data() : data;
 					if(typeof dis == "object"){
@@ -158,6 +159,7 @@
 				if(dis == display){
 					span.addClass('ui-state-selected');
 				}
+				
 				spans.push(span);
 				div.append(span);
 			});
