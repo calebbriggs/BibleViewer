@@ -39,7 +39,10 @@
 			});
 				
 			this._input
-				.bind('keyup', $.proxy(this._search, this));				
+				.bind('keyup', $.proxy(this._search, this))
+
+			$el
+				.bind('mouseleave',$.proxy(this._close, this));
 			
         },
 		
