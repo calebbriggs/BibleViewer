@@ -21,7 +21,7 @@ http.createServer(function (request, response) {
     var filePath = '.' + request.url;
 	var url_parts = url.parse(request.url,true);
 	var query = url_parts.query;
-	
+		
     if (filePath == './' || query.book) {
         filePath = './index.html';
 				
@@ -40,6 +40,8 @@ http.createServer(function (request, response) {
 				response.end('\n');
 			});
 		}
+		
+		
     }
 	else if(filePath == './search'){
 				 

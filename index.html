@@ -22,7 +22,8 @@
 	  		var viewModel = new model(booksOfTheBible);
 			$('document').ready(function(){							
 				ko.applyBindings(viewModel);
-				viewModel.currentBible("ASV");					
+				viewModel.currentBible("ASV");	
+				viewModel.getQueryString();
 			})
 	  </script>
 

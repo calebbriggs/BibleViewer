@@ -15,7 +15,8 @@ var model = function(books){
 	  			this.currentBookNumber = ko.observable();
 	  			this.currentChapterNumber = ko.observable();
 	  			this.tweets = ko.observableArray([]);
-								
+				this.queryString = ko.observable();
+				
 	  			this.random = false;
 				this.backAChapter = false;
 				
@@ -28,6 +29,30 @@ var model = function(books){
 					return _self.searchResults().length;
 				});
 				
+				this.queryString.subscribe(function(newValue){
+					if(newValue){
+						  var book = _.find(_self.books(),function (b){ return b.Book == newValue.book;});
+						  _self.currentBook(book);
+						_self.searchClickChapter(newValue.chapter);
+					}            
+			    });
+				
+			    this.getQueryString=function () {
+			        var _qs={};
+			        var match,
+			          pl     = /\+/g,  // Regex for replacing addition symbol with a space
+			          search = /([^&=]+)=?([^&]*)/g,
+			          decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+			          query  = window.location.search.substring(1);
+			          
+			        while (match = search.exec(query))
+			           _qs[decode(match[1])] = decode(match[2]);
+			            
+			           if(_qs.book){
+			            _self.queryString(_qs);
+			           }                    
+			      };
+				  
 				this.bibleCombo = ko.computed(function(){
 					return {
 						 widget: "comboBarB",
@@ -183,7 +208,8 @@ var model = function(books){
 							success: function(data){
 								data.results ? _self.tweets(data.results) : _self.tweets([])
 							}
-						});
+				    });
+
 
 	  		}
 			
