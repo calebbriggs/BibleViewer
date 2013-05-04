@@ -33,7 +33,7 @@ var model = function(books){
 					if(newValue){
 						  var book = _.find(_self.books(),function (b){ return b.Book == newValue.book;});
 						  _self.currentBook(book);
-						_self.searchClickChapter(newValue.chapter);
+						 _self.searchClickChapter(newValue.chapter);
 					}            
 			    });
 				
