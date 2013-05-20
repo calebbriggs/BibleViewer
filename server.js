@@ -53,7 +53,7 @@ http.createServer(function (request, response) {
 				request.on('end', function () {
 				   getSearchData = JSON.parse(getSearchData);
 					 var searchArray = [];
-					 _.each(bible.books, function(book){ 
+					 _.each(KJV.books, function(book){ 
 						 _.each(book.chapters, function(chapter){
 							 _.each(chapter.verses,function(verse){
 									searchArray.push( { book: book.name, chapter: chapter.number, verse: verse.number ,text: verse.text});
