@@ -35,7 +35,8 @@ http.createServer(function (request, response) {
 			   getData = JSON.parse(getData);
 			   var currentBible = _.find(bibles, function(bible){return bible.name == getData.currentBible;});
 			   var currentBook = _.find(currentBible.books, function(book){ return book.name == getData.currentBook});
-				response.writeHead(200, {'content-type': 'text/json' });
+				response.writeHead(200, {'content-type': 'text/json',
+                     'Access-Control-Allow-Origin' : '*' });
 				response.write( JSON.stringify(currentBook));
 				response.end('\n');
 			});
